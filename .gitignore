@@ -445,4 +445,6 @@ sketch
 !.vscode/extensions.json
 *.code-workspace
 
+publish
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,aspnetcore,vscode,react,node,git
