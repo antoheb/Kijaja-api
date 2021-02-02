@@ -28,9 +28,9 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(opt => {
-                
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddDbContext<DataContext>(opt =>
+            {
+                opt.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 23)));
             });
 
             services.AddControllers();

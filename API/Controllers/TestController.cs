@@ -1,4 +1,9 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Persistence;
 
 namespace API.Controllers
 {
@@ -6,10 +11,17 @@ namespace API.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<string> Index()
+        private readonly DataContext _dataContext;
+
+        public TestController(DataContext dataContext)
         {
-            return "Saoud pue";
-        } 
+            _dataContext = dataContext;
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<Item>>> Index()
+        {
+            var items = await _dataContext.Items.ToListAsync();
+            return items;
+        }
     }
 }
