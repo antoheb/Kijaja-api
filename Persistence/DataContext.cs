@@ -10,16 +10,23 @@ namespace Persistence
         {
         }
 
-        public DbSet<Item> Items { get; set; }
+        public DbSet<Ad> Ads { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Item>()
+            builder.Entity<Ad>()
             .HasOne(x => x.AppUser)
-            .WithMany( x=> x.UserItems)
+            .WithMany(x => x.UserAds)
             .HasForeignKey(x => x.AppUserId);
+
+            builder.Entity<AppUser>()
+            .HasOne(x => x.Address)
+            .WithOne(x => x.AppUser)
+            .HasForeignKey<Address>(x => x.AppUserId);
         }
     }
 }
