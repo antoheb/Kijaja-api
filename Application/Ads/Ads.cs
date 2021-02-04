@@ -1,11 +1,7 @@
-using System;
-
-namespace Domain
+namespace Application.Ads
 {
-    public class Item
+    public class Ads
     {
-        public Guid ItemId { get; set; }
-        
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -17,10 +13,5 @@ namespace Domain
         public string Picture { get; set; }
 
         public string Status { get; set; }
-
-        public virtual AppUser AppUser { get; set; }
-
-        public string AppUserId { get; set; }
-
     }
 }

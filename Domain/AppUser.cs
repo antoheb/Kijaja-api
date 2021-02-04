@@ -9,14 +9,8 @@ namespace Domain
 
         public string LastName { get; set; }
 
-        public string Province { get; set; }
+        public virtual Collection<Ad> UserAds {get; set;}
 
-        public string Street { get; set; }
-
-        public string City { get; set; }
-
-        public string PostalCode { get; set; }
-
-        public Collection<Item> UserItems {get; set;}
+        public Address Address {get; set;}
     }
 }
