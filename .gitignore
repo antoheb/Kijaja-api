@@ -446,5 +446,6 @@ sketch
 *.code-workspace
 
 publish
+Security-Project
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,aspnetcore,vscode,react,node,git

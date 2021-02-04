@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using API.Middleware;
 using Application.Ads;
@@ -36,7 +37,8 @@ namespace API
         {
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                opt.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 23)));
+
             });
 
             services.AddCors(opt =>
