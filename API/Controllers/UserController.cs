@@ -68,5 +68,12 @@ namespace API.Controllers
         {
             return await _mediator.Send(new UserAds.Query());
         }
+
+        [HttpPost("edit")]
+        [Authorize]
+        public async Task<ActionResult<Unit>> EditProfile(EditProfile.Command command)
+        {
+            return await _mediator.Send(command);
+        }
     }
 }
