@@ -1,7 +1,11 @@
+using System;
+
 namespace Application.Ads
 {
     public class Ads
     {
+        public Guid Id {get; set;}
+
         public string Name { get; set; }
 
         public string Description { get; set; }

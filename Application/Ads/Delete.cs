@@ -15,7 +15,7 @@ namespace Application.Ads
     {
         public class Command : IRequest
         {
-            public Guid AdId { get; set; }
+            public Guid Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -33,7 +33,7 @@ namespace Application.Ads
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var ad = await _dataContext.Ads.FindAsync(request.AdId);
+                var ad = await _dataContext.Ads.FindAsync(request.Id);
                 var user = await _userManager.FindByNameAsync(_userAccessor.GetCurrentUsername());
 
                 if(ad == null)

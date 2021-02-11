@@ -45,6 +45,7 @@ namespace Application.Ads
                 {
                     var newAds = new Ads
                     {
+                        Id = ads.Id,
                         Name = ads.Name,
                         Description = ads.Description,
                         Picture = ads.Picture,

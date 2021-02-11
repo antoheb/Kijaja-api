@@ -1,6 +1,8 @@
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using Application.Interface;
 using Domain;
 using MediatR;
@@ -32,6 +34,9 @@ namespace Application.Addresses
             {
                 var user = await _userManager.FindByNameAsync(_userAccessor.GetCurrentUsername());
                 var address = _dataContext.Addresses.FirstOrDefault(x => x.AppUserId == user.Id);
+
+                if(address == null)
+                    return new UserAddress{};
 
                 return new UserAddress 
                 {

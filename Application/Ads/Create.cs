@@ -36,7 +36,6 @@ namespace Application.Ads
                 RuleFor(x => x.Description).NotEmpty();
                 RuleFor(x => x.Price).NotEmpty();
                 RuleFor(x => x.Category).NotEmpty();
-                RuleFor(x => x.Picture).NotEmpty();
                 RuleFor(x => x.Status).NotEmpty();
             }
         }

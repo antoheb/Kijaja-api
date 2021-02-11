@@ -27,16 +27,19 @@ namespace Application.Users
 
             public string Password { get; set; }
 
+            public string confirmPassword {get; set;}
+
             public string Origin { get; set; }
         }
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.FirstName).NotEmpty().WithMessage("Le prenom ne peut pas être vide");
-                RuleFor(x => x.LastName).NotEmpty().WithMessage("Le nom ne peut pas être vide"); ;
-                RuleFor(x => x.Email).NotEmpty().WithMessage("L'address courriel ne peut pas être vide").EmailAddress();
+                RuleFor(x => x.FirstName).NotEmpty();
+                RuleFor(x => x.LastName).NotEmpty();
+                RuleFor(x => x.Email).NotEmpty();
                 RuleFor(x => x.Password).Password();
+                RuleFor(x => x.confirmPassword).NotEmpty().WithMessage("You must confirm your password");
             }
         }
 
@@ -56,6 +59,9 @@ namespace Application.Users
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                if(request.Password != request.Password)
+                    throw new RestException(HttpStatusCode.BadRequest, new { Username = "Your passwords do not correspond" });
+
                 if (await _context.Users.AnyAsync(x => x.UserName == request.Email))
                     throw new RestException(HttpStatusCode.BadRequest, new { Username = "Email already registered" });
 

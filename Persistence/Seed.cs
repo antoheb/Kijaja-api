@@ -35,11 +35,10 @@ namespace Persistence
 
                 context.Addresses.Add(address);
                 context.SaveChanges();
-            }
 
-            if (!context.Ads.Any())
-            {
-                var ads = new List<Ad>()
+                if (!context.Ads.Any())
+                {
+                    var ads = new List<Ad>()
                 {
                     new Ad()
                     {
@@ -50,7 +49,7 @@ namespace Persistence
                         Picture = null,
                         Status = "Status 1",
                         AppUser = null,
-                        AppUserId = null
+                        AppUserId = user.Id
                     },
                      new Ad()
                     {
@@ -61,7 +60,7 @@ namespace Persistence
                         Picture = null,
                         Status = "Status 2",
                         AppUser = null,
-                        AppUserId = null
+                        AppUserId = user.Id
                     },
                      new Ad()
                     {
@@ -98,8 +97,9 @@ namespace Persistence
                     }
                 };
 
-                context.Ads.AddRange(ads);
-                await context.SaveChangesAsync();
+                    context.Ads.AddRange(ads);
+                    await context.SaveChangesAsync();
+                }
             }
         }
     }
