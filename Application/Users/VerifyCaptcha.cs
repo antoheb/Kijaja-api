@@ -23,7 +23,7 @@ namespace Application.Users
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Token).NotEmpty().WithMessage("Le token ne peut pas être vide");
+                RuleFor(x => x.Token).NotEmpty().WithMessage("Token cannot be emtpy");
             }
         }
 

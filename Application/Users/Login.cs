@@ -44,15 +44,15 @@ namespace Application.Users
                 var user = await _userManager.FindByNameAsync(request.Username);
 
                 if (user == null)
-                    throw new RestException(HttpStatusCode.Unauthorized, new { message = "Identifiant ou mot de passe non valide" });
+                    throw new RestException(HttpStatusCode.Unauthorized, new { message = "Email or password invalid" });
 
-                if (!user.EmailConfirmed) throw new RestException(HttpStatusCode.BadRequest, new { Email = "Address courriel n'a pas été verifier" });
+                if (!user.EmailConfirmed) throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email address has not been confirm - go see your mail box" });
 
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
                 if (!result.Succeeded)
                 {
-                    throw new RestException(HttpStatusCode.Unauthorized, new { message = "Identifiant ou mot de passe non valide" });
+                    throw new RestException(HttpStatusCode.Unauthorized, new { message = "Email or password invalid" });
                 }
 
                 // TODO: generate token

@@ -26,8 +26,8 @@ namespace Application.Users
         {
             public CommandValidator()
             {
-                RuleFor(x => x.FirstName).NotEmpty().WithMessage("Le prenom ne peut pas être vide");
-                RuleFor(x => x.LastName).NotEmpty().WithMessage("Le nom ne peut pas être vide");
+                RuleFor(x => x.FirstName).NotEmpty();
+                RuleFor(x => x.LastName).NotEmpty();
             }
         }
 

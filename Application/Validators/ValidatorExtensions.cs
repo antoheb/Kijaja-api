@@ -7,7 +7,7 @@ namespace Application.Validators
         public static IRuleBuilder<T, string> Password<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
             var options = ruleBuilder
-                .NotEmpty().MinimumLength(6).WithMessage("Le mot de passe doit contenir au moins 6 caractères").Matches("[A-Z]").WithMessage("Le mot de passe doit contenir au moins un lettre minuscule").Matches("[0-9]").WithMessage("Le mot de passe doit contenir au moins un chiffre").Matches("[^-a-zA-Z0-9]").WithMessage("Le mot de passe doit contenier au moins un symbole");
+                .NotEmpty().MinimumLength(6).WithMessage("Password needs to contain at least 6 characteres").Matches("[A-Z]").WithMessage("Password needs to contain at least one lower case letter").Matches("[0-9]").WithMessage("Password needs to contain at least one number").Matches("[^-a-zA-Z0-9]").WithMessage("Password needs to contain at least one symboles");
 
             return options;
         }
