@@ -34,7 +34,7 @@ namespace Application.Users
             {
                 _verificator = verificator;
             }
-            public async Task<Boolean> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(Query request, CancellationToken cancellationToken)
             {
                 return await _verificator.VerifyToken(request.Token);
             }
