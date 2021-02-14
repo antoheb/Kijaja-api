@@ -46,7 +46,6 @@ namespace API
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
                     policy.AllowAnyHeader().AllowAnyMethod()
-                    .WithOrigins("http://localhost:3000")
                     .WithOrigins("https://security-project-app.herokuapp.com/");
                 });
             });
