@@ -75,5 +75,12 @@ namespace API.Controllers
         {
             return await _mediator.Send(command);
         }
+
+        [HttpPost("captcha")]
+        [AllowAnonymous]
+        public async Task<ActionResult<bool>> VerifyCaptcha(VerifyCaptcha.Query query)
+        {
+            return await _mediator.Send(query);
+        }
     }
 }
