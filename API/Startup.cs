@@ -91,6 +91,7 @@ namespace API
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<ICaptchaVerificator, CaptchaVerificator>();
             services.Configure<SendGridSettings>(Configuration.GetSection("SendGrid"));
 
             services.AddSwaggerGen(c =>
