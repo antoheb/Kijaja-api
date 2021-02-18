@@ -41,13 +41,16 @@ namespace Application.Users
 
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
+                //Verify username exist in the database
                 var user = await _userManager.FindByNameAsync(request.Username);
 
                 if (user == null)
                     throw new RestException(HttpStatusCode.Unauthorized, new { message = "Email or password invalid" });
 
+                //Verify if the email has been confirm, if not throw error
                 if (!user.EmailConfirmed) throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email address has not been confirm - go see your mail box" });
 
+                //If the credentials are correct, the result return succeeded
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
                 if (!result.Succeeded)
@@ -55,7 +58,6 @@ namespace Application.Users
                     throw new RestException(HttpStatusCode.Unauthorized, new { message = "Email or password invalid" });
                 }
 
-                // TODO: generate token
                 return new User
                 {
                     Username = user.UserName,

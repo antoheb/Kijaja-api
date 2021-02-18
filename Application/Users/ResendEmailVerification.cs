@@ -29,6 +29,8 @@ namespace Application.Users
 
             public async Task<Unit> Handle(Query request, CancellationToken cancellationToken)
             {
+                //Ensure that the user who just has been created has the right email
+                //If email is correct, token is recreated and email is resent via external API SendGrid
                 var user = await _userManager.FindByEmailAsync(request.Email);
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
