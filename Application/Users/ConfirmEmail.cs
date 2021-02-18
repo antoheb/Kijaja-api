@@ -18,6 +18,7 @@ namespace Application.Users
             public string Email { get; set; }
         }
 
+        //Using fluent validation to ensure all the fields have validated data
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
@@ -37,7 +38,10 @@ namespace Application.Users
 
             public async Task<IdentityResult> Handle(Command request, CancellationToken cancellationToken)
             {
+                //Ensure that the user associated with the email is existing
                 var user = await _userManager.FindByEmailAsync(request.Email);
+
+                //Decoded the token and make sure that email confirm is the right one associated with the token
                 var decodedTokenBytes = WebEncoders.Base64UrlDecode(request.Token);
                 var decodedToken = Encoding.UTF8.GetString(decodedTokenBytes);
                 return await _userManager.ConfirmEmailAsync(user, decodedToken);

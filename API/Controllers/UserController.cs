@@ -20,6 +20,7 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
+        //Allow anyone to access this request
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<ActionResult<User>> Login(Login.Query query)
@@ -27,6 +28,7 @@ namespace API.Controllers
             return await _mediator.Send(query);
         }
 
+        //Allow anyone to access this request
         [HttpPost("register")]
         [AllowAnonymous]
         public async Task<ActionResult> RegisterCustomer(Register.Command command)
@@ -36,6 +38,7 @@ namespace API.Controllers
             return Ok("Registration successful - please check your email");
         }
 
+        //Allow anyone to access this request
         [AllowAnonymous]
         [HttpPost("verifyEmail")]
         public async Task<ActionResult> VerifyEmail(ConfirmEmail.Command command)
@@ -45,6 +48,7 @@ namespace API.Controllers
             return Ok("Email confirmed - you can now login");
         }
 
+        //Allow anyone to access this request
         [AllowAnonymous]
         [HttpGet("resendEmailVerification")]
         public async Task<ActionResult> ResendEmailVerification([FromQuery]ResendEmailVerification.Query query)
@@ -55,6 +59,7 @@ namespace API.Controllers
             return Ok("Email verification link sent - please check email");
         }
 
+        //The user needs to be authenticated
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<User>> CurrentUser()
@@ -62,6 +67,7 @@ namespace API.Controllers
             return await _mediator.Send(new CurrentUser.Query());
         }
 
+        //The user needs to be authenticated
         [HttpGet("myAds")]
         [Authorize]
         public async Task<ActionResult<List<Ads>>> UserList()
@@ -69,6 +75,7 @@ namespace API.Controllers
             return await _mediator.Send(new UserAds.Query());
         }
 
+        //The user needs to be authenticated
         [HttpPost("edit")]
         [Authorize]
         public async Task<ActionResult<Unit>> EditProfile(EditProfile.Command command)

@@ -27,6 +27,7 @@ namespace Application.Users
 
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
+                //User accessor called the method to retrieve the username from the token
                 var user = await _userManager.FindByNameAsync(_userAccessor.GetCurrentUsername());
 
                 return new User

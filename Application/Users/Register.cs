@@ -31,6 +31,8 @@ namespace Application.Users
 
             public string Origin { get; set; }
         }
+
+        //Using fluent validation to ensure all the fields have validated data
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
@@ -51,17 +53,21 @@ namespace Application.Users
 
             private readonly IEmailSender _emailSender;
 
+            //Declaring constructor to have acess to our data context
             public Handler(DataContext context, UserManager<AppUser> userManager, IEmailSender emailSender)
             {
                 _emailSender = emailSender;
                 _userManager = userManager;
                 _context = context;
             }
+
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                if(request.Password != request.Password)
+                //Ensure the user has the right password
+                if(request.Password != request.confirmPassword)
                     throw new RestException(HttpStatusCode.BadRequest, new { Username = "Your passwords do not correspond" });
 
+                //Return an error if the username choosen already exist
                 if (await _context.Users.AnyAsync(x => x.UserName == request.Email))
                     throw new RestException(HttpStatusCode.BadRequest, new { Username = "Email already registered" });
 
@@ -75,15 +81,19 @@ namespace Application.Users
 
                 var result = await _userManager.CreateAsync(user, request.Password);
 
+                //  throw error if the new user creation request failed
                 if (!result.Succeeded)
                     throw new RestException(HttpStatusCode.BadRequest, new { message = "Error while saving your information" });
 
+                //Creation and encoding of the email token
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
 
+                //Creation of messsage to put in the email
                 var verifyUrl = $"{request.Origin}/client/verifier-email?token={token}&email={request.Email}";
                 var message = $"<p>Click on the link to confirm your email address</p><p><a href='{verifyUrl}'>{verifyUrl}</a></p>";
 
+                //Use of external API called SendGrid to send the email
                 await _emailSender.SendEmailAsync(request.Email, "Please confirm to verify you email", message);
                 return Unit.Value;
             }
