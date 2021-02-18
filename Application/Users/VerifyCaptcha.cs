@@ -23,6 +23,7 @@ namespace Application.Users
         {
             public CommandValidator()
             {
+                // Make sure we can't pass an empty token to the backend.
                 RuleFor(x => x.Token).NotEmpty().WithMessage("Token cannot be emtpy");
             }
         }
